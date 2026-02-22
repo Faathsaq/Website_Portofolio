@@ -90,16 +90,16 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
               {/* Text */}
               <h1 className="text-4xl md:text-6xl font-bold mb-10">
                 <div className="text-slate-700 mb-3">
-                  <span data-aos="fade-right">Welcome</span>{" "}
-                  <span data-aos="fade-right" data-aos-delay="200">To</span>{" "}
-                  <span data-aos="fade-right" data-aos-delay="400">My</span>
+                  <span data-aos="fade-right">Hi,</span>{" "}
+                  <span data-aos="fade-right" data-aos-delay="200">Im</span>{" "}
+                  <span data-aos="fade-right" data-aos-delay="400">Faiz</span>
                 </div>
                 <div>
                   <span
                     data-aos="fade-up"
                     className="bg-gradient-to-r from-[#756AB6] via-[#AC87C5] to-[#E0AED0] bg-clip-text text-transparent"
                   >
-                    Portofolio Website
+                    Aspiring UI/UX Designer.
                   </span>
                 </div>
               </h1>
@@ -114,7 +114,7 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
                 >
                   <Globe className="w-5 h-5 text-blue-500" />
                   <span className="bg-gradient-to-r from-[#756AB6] via-[#AC87C5] to-[#E0AED0] bg-clip-text text-transparent text-lg font-medium">
-                    <TypewriterEffect text="www.atha.id" />
+                    <TypewriterEffect text="Explore My Projects" />
                   </span>
                 </a>
               </div>
