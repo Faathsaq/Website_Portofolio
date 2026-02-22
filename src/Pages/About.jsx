@@ -3,6 +3,7 @@ import { FileText, Code, Award, Globe, ArrowUpRight, Sparkles } from "lucide-rea
 import AOS from "aos";
 import "aos/dist/aos.css";
 import CountUp from "react-countup";
+import profile from "../assets/profile.jpg";
 
 // palette: #756AB6 -> #AC87C5 -> #E0AED0
 
@@ -38,7 +39,7 @@ const ProfileImage = memo(() => (
       <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200
  blur-2xl opacity-40 group-hover:opacity-70 transition" />
       <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white shadow-xl group-hover:scale-105 group-hover:rotate-1 transition duration-500">
-        <img src="/profile.jpg" alt="Profile" className="w-full h-full object-cover" />
+        <img src={profile} alt="Profile" className="w-full h-full object-cover" />
       </div>
     </div>
   </div>
