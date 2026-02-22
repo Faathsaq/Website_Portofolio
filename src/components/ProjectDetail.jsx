@@ -3,10 +3,8 @@ import { useParams, useNavigate } from "react-router-dom"
 import {
   ArrowLeft,
   ExternalLink,
-  Github,
   Code2,
   Star,
-  ChevronRight,
   Layers,
   Layout,
   Globe,
@@ -14,9 +12,7 @@ import {
   Cpu,
   Code,
 } from "lucide-react"
-import Swal from "sweetalert2"
 
-// ⬇️ IMPORT BACKGROUND
 import AnimatedBackground from "../components/Background.jsx"
 
 /* ===================== TECH ICON MAP ===================== */
@@ -31,12 +27,13 @@ const TECH_ICONS = {
   default: Package,
 }
 
-/* ===================== TECH BADGE ===================== */
+/* ===================== COMPONENTS ===================== */
+
 const TechBadge = ({ tech }) => {
   const Icon = TECH_ICONS[tech] || TECH_ICONS.default
 
   return (
-    <div className="group relative px-3 py-2 rounded-xl bg-white/70 backdrop-blur border border-indigo-200 hover:border-indigo-300 transition">
+    <div className="px-3 py-2 rounded-xl bg-white/70 backdrop-blur border border-indigo-200 hover:border-indigo-300 transition">
       <div className="flex items-center gap-2">
         <Icon className="w-4 h-4 text-indigo-400" />
         <span className="text-sm text-indigo-600 font-medium">{tech}</span>
@@ -45,7 +42,6 @@ const TechBadge = ({ tech }) => {
   )
 }
 
-/* ===================== FEATURE ITEM ===================== */
 const FeatureItem = ({ feature }) => (
   <li className="flex items-start gap-3 p-3 rounded-xl bg-white/60 backdrop-blur border border-slate-200">
     <span className="w-2 h-2 mt-2 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400" />
@@ -53,16 +49,13 @@ const FeatureItem = ({ feature }) => (
   </li>
 )
 
-/* ===================== STATS ===================== */
-const ProjectStats = ({ project }) => (
+const ProjectStats = ({ techCount, featureCount }) => (
   <div className="grid grid-cols-2 gap-4">
     <div className="bg-white/70 backdrop-blur rounded-xl p-4 border border-indigo-200">
       <div className="flex items-center gap-3">
         <Code2 className="text-indigo-500" />
         <div>
-          <p className="text-xl font-bold text-indigo-700">
-            {project.TechStack.length}
-          </p>
+          <p className="text-xl font-bold text-indigo-700">{techCount}</p>
           <p className="text-xs text-slate-500">Technologies</p>
         </div>
       </div>
@@ -72,9 +65,7 @@ const ProjectStats = ({ project }) => (
       <div className="flex items-center gap-3">
         <Layers className="text-indigo-700" />
         <div>
-          <p className="text-xl font-bold text-indigo-700">
-            {project.Features.length}
-          </p>
+          <p className="text-xl font-bold text-indigo-700">{featureCount}</p>
           <p className="text-xs text-slate-500">Features</p>
         </div>
       </div>
@@ -83,6 +74,7 @@ const ProjectStats = ({ project }) => (
 )
 
 /* ===================== MAIN ===================== */
+
 const ProjectDetails = () => {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -112,14 +104,11 @@ const ProjectDetails = () => {
 
   return (
     <div className="min-h-screen bg-[#F3F8FF] relative overflow-hidden">
-      
-      {/* ✅ BACKGROUND */}
       <AnimatedBackground />
 
-      {/* ✅ CONTENT */}
       <div className="relative z-10 max-w-7xl mx-auto px-5 py-16">
-        
-        {/* BACK */}
+
+        {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
           className="flex items-center gap-2 mb-10 px-4 py-2 rounded-xl bg-white/70 backdrop-blur border border-slate-200 hover:bg-white transition"
@@ -129,8 +118,8 @@ const ProjectDetails = () => {
         </button>
 
         <div className="grid lg:grid-cols-2 gap-14">
-          
-          {/* LEFT */}
+
+          {/* LEFT SIDE */}
           <div className="space-y-8">
             <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#756AB6] via-[#AC87C5] to-[#E0AED0] bg-clip-text text-transparent">
               {project.Title}
@@ -140,8 +129,32 @@ const ProjectDetails = () => {
               {project.Description}
             </p>
 
-            <ProjectStats project={project} />
+            <ProjectStats
+              techCount={project.TechStack.length}
+              featureCount={project.Features.length}
+            />
 
+            {/* Live Demo Button */}
+            {project.Link && (
+  <a
+    href={project.Link}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group relative inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white overflow-hidden transition-all duration-300"
+  >
+    {/* Background Gradient */}
+    <div className="absolute inset-0 bg-gradient-to-r from-[#756AB6] via-[#AC87C5] to-[#E0AED0] transition-all duration-500 group-hover:scale-105" />
+
+    {/* Hover Overlay Effect */}
+    <div className="absolute inset-0 translate-y-full bg-white/10 transition-transform duration-500 group-hover:translate-y-0" />
+
+    {/* Content */}
+    <ExternalLink className="relative w-4 h-4 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+    <span className="relative">Live Demo</span>
+  </a>
+)}
+
+            {/* Tech Stack */}
             <div>
               <h3 className="font-semibold text-slate-800 mb-3">
                 Technologies Used
@@ -154,40 +167,44 @@ const ProjectDetails = () => {
             </div>
           </div>
 
-          {/* RIGHT */}
+          {/* RIGHT SIDE */}
           <div className="space-y-8">
-<div className="rounded-2xl overflow-hidden border border-slate-200 shadow-xl bg-white">
-  <div className="relative w-full h-[260px] sm:h-[300px] md:h-[360px]">
-    {project.video_url ? (
-      <video
-        src={project.video_url}
-        controls
-        className="absolute inset-0 w-full h-full object-cover object-center"
-      />
-    ) : (
-      <img
-        src={project.Img}
-        alt={project.Title}
-        className="absolute inset-0 w-full h-full object-cover object-center"
-        loading="lazy"
-      />
-    )}
-  </div>
-</div>
 
+            {/* Media */}
+            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-xl bg-white">
+              <div className="relative w-full h-[260px] sm:h-[300px] md:h-[360px]">
+                {project.video_url ? (
+                  <video
+                    src={project.video_url}
+                    controls
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ) : (
+                  <img
+                    src={project.Img}
+                    alt={project.Title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                )}
+              </div>
+            </div>
+
+            {/* Features */}
             <div className="bg-white/70 backdrop-blur rounded-2xl p-6 border border-slate-200">
               <h3 className="flex items-center gap-2 font-semibold text-slate-800 mb-4">
-                <Star className="text-yellow-400" /> Key Features
+                <Star className="text-yellow-400" />
+                Key Features
               </h3>
 
               <ul className="space-y-2">
-                {project.Features.map((f, i) => (
-                  <FeatureItem key={i} feature={f} />
+                {project.Features.map((feature, i) => (
+                  <FeatureItem key={i} feature={feature} />
                 ))}
               </ul>
             </div>
-          </div>
 
+          </div>
         </div>
       </div>
     </div>
